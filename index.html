@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>HSV / RGB convert and calculation</title>
+		<meta charset="utf-8">
+		<script src="js/ColorAdjust.js"></script>
+		<script type="text/javascript">
+			var adjust, c1, c2, cont1, cont2;
+			function init() {
+				adjust = new ColorAdjust();
+				cont1 = d('color1_container'), cont2 = d('color2_container'), c1 = d('color1'), c2 = d('color2');
+				c1.onchange = function() {
+					var o = adjust.fromHEX(this.value);
+					cont1.style.backgroundColor = o.hex;
+					adjustSlider();
+				};
+				c2.onchange = function() {
+					var o = adjust.fromHEX(this.value);
+					cont2.style.backgroundColor = o.hex;
+					adjustSlider();
+				};
+			};
+			function adjustSlider() {
+				if (c1.value.length && c2.value.length) {
+					var diff = adjust.difference(c1.value, c2.value);
+					d('sass_string').innerHTML = adjust.sassDifference(c1.value, c2.value);
+				}
+			};
+			function d(id) {
+				return document.getElementById(id);
+			};
+		</script>
+	</head>
+	<body onload="init();">
+	
+		<div class="color_container">
+			<div class="color1" id="color1_container">
+				<div class="color_input">
+					<label for="color1">#</label>
+					<input name="color1" id="color1" maxlength="6" type="text" placeholder="DF58A1" />
+				</div>
+				<div class="color_pointer"> </div>
+			</div>
+			<div class="color2" id="color2_container">
+				<div class="color_input">
+					<label for="color2">#</label>
+					<input name="color2" id="color2" maxlength="6" type="text" placeholder="DF58A1" />
+				</div>
+			</div>
+		</div>
+		
+		<div class="sass_code">
+			<label for="sass_string">SASS-String: </label>
+			<span id="sass_string"> </span>
+		</div>
+		
+		<div class="sliders">
+			<div class="slider_container">
+				<div class="slider" id="slide_light">
+					<a href="#" class="slider"> </a>
+				</div>
+				<label for="slider_light">Lightness</label>
+			</div>
+			<div class="slider_container">
+				<div class="slider" id="slide_sat">
+					<a href="#" class="slider"> </a>
+				</div>
+				<label for="slider_sat">Saturation</label>
+			</div>
+			<div class="slider_container">
+				<div class="slider" id="slide_hue">
+					<a href="#" class="slider"> </a>
+				</div>
+				<label for="slide_hue">Color/Hue</label>
+			</div>
+		</div>
+		
+	</body>
+</html>

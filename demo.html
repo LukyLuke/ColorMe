@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>HSV / RGB convert and calculation</title>
+		<meta charset="utf-8">
+		<style>
+			fieldset {
+				position: relative;
+			}
+			fieldset input {
+				width: 90%;
+			}
+			.left, .right {
+				float: left;
+				width: 50%;
+				display: inline-block;
+			}
+			.left {
+				clear: both;
+			}
+			.left div, .right div {
+				padding: 1em;
+			}
+		</style>
+		<script src="ColorAdjust.js"></script>
+		<script type="text/javascript">
+			function calc_difference() {
+				var c1 = document.getElementById('diff_rgb1').value;
+				var c2 = document.getElementById('diff_rgb2').value;
+				var obj = new ColorAdjust();
+				var diff = obj.difference(c1, c2);
+				var sass = obj.sassDifference(c1, c2);
+				
+				document.getElementById('diff_result_red').innerHTML = diff.r;
+				document.getElementById('diff_result_green').innerHTML = diff.g;
+				document.getElementById('diff_result_blue').innerHTML = diff.b;
+				document.getElementById('diff_result_hue').innerHTML = diff.h;
+				document.getElementById('diff_result_sat').innerHTML = diff.s;
+				document.getElementById('diff_result_light').innerHTML = diff.l;
+				document.getElementById('diff_result_sass').innerHTML = sass;
+			}
+			
+			function calc_adjustment() {
+				var c = document.getElementById('adj_rgb').value;
+				var h = document.getElementById('adj_hue').value;
+				var s = document.getElementById('adj_sat').value;
+				var l = document.getElementById('adj_light').value;
+				var obj = new ColorAdjust();
+				var col = obj.adjustHSL(c, h, s, l);
+				var sass = obj.sassDifference(c, col.hex);
+				
+				document.getElementById('adj_result_hex').innerHTML = col.hex;
+				document.getElementById('adj_result_red').innerHTML = col.r;
+				document.getElementById('adj_result_green').innerHTML = col.g;
+				document.getElementById('adj_result_blue').innerHTML = col.b;
+				document.getElementById('adj_result_hue').innerHTML = col.h;
+				document.getElementById('adj_result_sat').innerHTML = col.s;
+				document.getElementById('adj_result_light').innerHTML = col.l;
+				document.getElementById('adj_result_sass').innerHTML = sass;
+			}
+		</script>
+	</head>
+	<body>
+	
+		<fieldset>
+			<legend>Color Difference</legend>
+			<div class="left"><div><label for="diff_rgb1">RGB-Hex Value 1</label></div></div>
+			<div class="right"><div><input id="diff_rgb1" name="diff_rgb1" type="text" value="#AABBCC" /></div></div>
+			<div class="left"><div><label for="diff_rgb2">RGB-Hex Value 2</label></div></div>
+			<div class="right"><div><input id="diff_rgb2" name="diff_rgb2" type="text" value="#112233" /></div></div>
+			<div class="left"><div><strong>Difference</strong></div></div>
+			<div class="right"><div>
+				<strong>Red</strong>: <span id="diff_result_red">&nbsp;</span><br/>
+				<strong>Green</strong>: <span id="diff_result_green">&nbsp;</span><br/>
+				<strong>Blue</strong>: <span id="diff_result_blue">&nbsp;</span><br/>
+				<strong>Hue</strong>: <span id="diff_result_hue">&nbsp;</span><br/>
+				<strong>Saturation</strong>: <span id="diff_result_sat">&nbsp;</span><br/>
+				<strong>Lightness</strong>: <span id="diff_result_light">&nbsp;</span><br/>
+				<strong>SASS-Function</strong>: <span id="diff_result_sass">&nbsp;</span>
+			</div></div>
+			<div class="left">&nbsp;</div>
+			<div class="right"><div><input type="button" value="Calculate" onclick="calc_difference();" /></div></div>
+		</fieldset>
+		
+		<fieldset>
+			<legend>Adjust by HSL</legend>
+			<div class="left"><div><label for="adj_rgb">RGB-Hex Value</label></div></div>
+			<div class="right"><div><input id="adj_rgb" name="adj_rgb" type="text" value="#AABBCC" /></div></div>
+			<div class="left"><div><label for="adj_hue">Hue</label></div></div>
+			<div class="right"><div><input id="adj_hue" name="adj_hue" type="text" value="180" />°</div></div>
+			<div class="left"><div><label for="adj_sat">Saturation</label></div></div>
+			<div class="right"><div><input id="adj_sat" name="adj_sat" type="text" value="50" />%</div></div>
+			<div class="left"><div><label for="adj_light">Lightness</label></div></div>
+			<div class="right"><div><input id="adj_light" name="adj_light" type="text" value="50" />%</div></div>
+			<div class="left"><div><strong>Difference</strong></div></div>
+			<div class="right"><div>
+				<strong>Hex</strong>: <span id="adj_result_hex">&nbsp;</span><br/>
+				<strong>Red</strong>: <span id="adj_result_red">&nbsp;</span><br/>
+				<strong>Green</strong>: <span id="adj_result_green">&nbsp;</span><br/>
+				<strong>Blue</strong>: <span id="adj_result_blue">&nbsp;</span><br/>
+				<strong>Hue</strong>: <span id="adj_result_hue">&nbsp;</span><br/>
+				<strong>Saturation</strong>: <span id="adj_result_sat">&nbsp;</span><br/>
+				<strong>Lightness</strong>: <span id="adj_result_light">&nbsp;</span><br/>
+				<strong>SASS-Function</strong>: <span id="adj_result_sass">&nbsp;</span>
+			</div></div>
+			<div class="left">&nbsp;</div>
+			<div class="right"><div><input type="button" value="Calculate" onclick="calc_adjustment();" /></div></div>
+		</fieldset>
+		
+	</body>
+</html>
