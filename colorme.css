@@ -1,0 +1,103 @@
+@charset "UTF-8"
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center, dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+	line-height: 1.2em;
+}
+/* HTML-5 Elements for oder browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+
+body {
+	font-size: 10pt;
+	font-family: Bitstream vera sans, Helvetica narrow, Helvetica, sans-serif;
+	text-decoration: none;
+}
+
+.wrapper {
+	margin: 0 auto;
+	position: relative;
+}
+
+.page {
+	width: 320px;
+}
+.container {
+	margin: 10px 0;
+}
+.container.shadow {
+	background: #FFFFFF;
+	box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.2);
+	border: 1px solid #B6B6B6;
+	border-radius: 5px;
+}
+
+.color {
+	position: relative;
+	height: 120px;
+	line-height: 150px;
+}
+.color_bottom {
+	height: 150px;
+	line-height: 180px;
+}
+
+.color .color_pointer {
+	position: absolute;
+	z-index: 501;
+	left: 0;
+	right: 0;
+	height: 0;
+	bottom: -39px;
+	border-top: 40px solid #FFFFFF;
+	border-bottom: 0px none #FFFFFF;
+	border-left: 160px solid transparent;
+	border-right: 160px solid transparent;
+}
+
+.color_input {
+	width: 140px;
+	margin: 0 auto;
+	position: relative;
+}
+
+.color_input input {
+	border: 1px solid #E0E0E0;
+	border-radius: 3px;
+	box-shadow: 1px 2px 2px #BFBFBF inset;
+	color: #555555;
+	height: 40px;
+	width: 110px;
+	padding-left: 30px;
+	font-size: 1.5em;
+	text-transform: uppercase;
+}
+.color_input input:focus {
+	box-shadow: 0 0 2px #0CBEFF;
+}
+
+.color_input label {
+	display: block;
+	color: #999999;
+	font-size: 1.5em;
+	position: absolute;
+	margin: -0.1em 0 0 0.3em;
+}
+
