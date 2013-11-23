@@ -21,11 +21,13 @@
 					cont2.style.backgroundColor = o.hex;
 					adjustSlider();
 				};
+				if (c1.value.length) { c1.onblur(); };
+				if (c2.value.length) { c2.onblur(); };
 			};
 			function adjustSlider() {
 				if (c1.value.length && c2.value.length) {
 					var diff = adjust.difference(c1.value, c2.value);
-					d('sass_string').innerHTML = adjust.sassDifference(c1.value, c2.value);
+					d('sass_string').innerHTML = adjust.sassDifference(c1.value, c2.value, true);
 				}
 			};
 			function d(id) {
@@ -51,27 +53,27 @@
 				</div>
 			</div>
 			
-			<div class="container sass">
-				<label for="sass_string">SASS-String: </label>
-				<span id="sass_string"> </span>
+			<div class="container sass shadow">
+				<label for="sass_string">SASS-String</label>
+				<span id="sass_string" class="string"> </span>
 			</div>
 			
 			<div class="container sliders">
 				<div class="slider_container">
 					<div class="slider" id="slide_light">
-						<a href="#" class="slider"> </a>
+						<a href="#" class="slider">&bull;</a>
 					</div>
 					<label for="slider_light">Lightness</label>
 				</div>
 				<div class="slider_container">
 					<div class="slider" id="slide_sat">
-						<a href="#" class="slider"> </a>
+						<a href="#" class="slider">&bull;</a>
 					</div>
 					<label for="slider_sat">Saturation</label>
 				</div>
 				<div class="slider_container">
 					<div class="slider" id="slide_hue">
-						<a href="#" class="slider"> </a>
+						<a href="#" class="slider">&bull;</a>
 					</div>
 					<label for="slide_hue">Color/Hue</label>
 				</div>
