@@ -42,10 +42,12 @@ ColorAdjust.prototype = {
 	 *   First color as HEX string.
 	 * @param string color2
 	 *   Second color as HEX string.
+	 * @param boolean formatted
+	 *   (optional) Set to true to get a HTML markup and not a plain string.
 	 * @return string
 	 *   A string which can be used in SASS to calculate the second color.
 	 */
-	sassDifference: function(color1, color2) {
+	sassDifference: function(color1, color2, formatted) {
 		var c1 = this.fromHEX(color1);
 		var c2 = this.fromHEX(color2);
 		var diff = this._calcDifference(c1, c2);
@@ -68,6 +70,14 @@ ColorAdjust.prototype = {
 		// Adjust hue.
 		if (diff.h != 0) {
 			result = 'adjust_hue(' + result + ', ' + this._formatFloat(c1.h + diff.h) + ')'
+		}
+		
+		// Format as html markup if so requested.
+		if (formatted) {
+			result = result.replace(/(lighten|darken|saturate|desaturate|adjust_hue)/g, '<span class="shy">&shy;</span><span class="keyword $1">$1</span>')
+				.replace(/(\(|\))/g, '<span class="bracket">$1</span><span class="shy">&shy;</span>')
+				.replace(/(#[0-9A-F]+)/g, '<span class="shy">&shy;</span><span class="color">$1</span>')
+				.replace(/,\s*((\-)?[0-9\.]+)/g, ',<span class="shy">&shy;</span><span class="value">$1</span><span class="shy">&shy;</span>');
 		}
 		
 		return result;
