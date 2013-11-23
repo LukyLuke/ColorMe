@@ -173,6 +173,9 @@ ColorAdjust.prototype = {
 		else if (max == b) {
 			h = 60 * (4 + ((r - g) / diff));
 		}
+		if (h < 0) {
+			h = 360 + h;
+		}
 		
 		// Maximum 4 decimals
 		result.h = this._formatFloat(h);
@@ -377,7 +380,7 @@ ColorAdjust.prototype = {
 	 *   Color value object {r, g, b, h, s, l, hex}
 	 */
 	_getColorValueObject: function() {
-		return { r: 0, g: 0, b: 0, h: 0, s: 0, l: 0, hex: '#000000' };
+		return { r: 0, g: 0, b: 0, h: 0.0, s: 0.0, l: 0.0, hex: '#000000' };
 	},
 	
 	
