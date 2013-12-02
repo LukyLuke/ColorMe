@@ -5,14 +5,25 @@
 		<meta charset="utf-8">
 		<link rel="stylesheet" type="text/css" href="colorme.css" />
 		<script src="js/ColorAdjust.js"></script>
+		<script src="js/Slider.js"></script>
 		<script type="text/javascript">
 			var adjust, c1, c2, cont1, cont2, arrow, h_slide, s_slide, l_slide;
 			var move = false;
 			function init() {
 				adjust = new ColorAdjust();
-				cont1 = d('color1_container'), cont2 = d('color2_container'), arrow = d('color_arrow'), c1 = d('color1'), c2 = d('color2');
-				h_slide = child('slide_hue', 'a'), s_slide = child('slide_sat', 'a'), l_slide = child('slide_light', 'a');
-				h_slide.style.left = s_slide.style.left = l_slide.style.left = (0 - h_slide.clientWidth / 2) + 'px';
+				cont1 = document.getElementById('color1_container'), cont2 = document.getElementById('color2_container'),
+				arrow = document.getElementById('color_arrow'), c1 = document.getElementById('color1'),
+				c2 = document.getElementById('color2');
+				
+				l_slide = new Slider(document.getElementById('container_slider_light'), 'Lightness', 'slider_light', 'slider');
+				l_slide.onmove(adjustColor);
+				
+				s_slide = new Slider(document.getElementById('container_slider_sat'), 'Saturation', 'slider_sat', 'slider');
+				s_slide.onmove(adjustColor);
+				
+				h_slide = new Slider(document.getElementById('container_slider_hue'), 'Hue/Color', 'slider_hue', 'slider');
+				h_slide.onmove(adjustColor);
+				
 				c1.onblur = function() {
 					var o = adjust.fromHEX(this.value);
 					cont1.style.backgroundColor = o.hex;
@@ -26,57 +37,30 @@
 				};
 				if (c1.value.length) { c1.onblur(); };
 				if (c2.value.length) { c2.onblur(); };
-				h_slide.onclick = s_slide.onclick = l_slide.onclick = function(ev) { return false; };
-				h_slide.onmousedown = s_slide.onmousedown = l_slide.onmousedown = function(ev) {
-					ev.stopPropagation();
-					move = {
-						target: ev.target,
-						left: parseInt(ev.target.style.left),
-						mouse: ev.pageX
-					};
-					return false;
-				};
-				document.body.onmouseup = function() { move = false; };
-				document.body.onmousemove = function(ev) {
-					if (move) {
-						ev.stopPropagation();
-						var sw = h_slide.clientWidth, width = d('slide_light').clientWidth - sw;
-						var diff = move.mouse - ev.pageX;
-						var left = move.left - diff;
-						left = left < (sw/2) ? 0-(sw/2) : ( left > width ? width : left );
-						move.target.style.left = left + 'px';
-						return false;
-					}
-				};
 			};
 			function adjustSlider() {
-				if (c1.value.length) {
+				if (c1.value.length || c2.value.length) {
 					var o = adjust.fromHEX( c2.value.length ? c2.value : c1.value );
-					var sw = h_slide.clientWidth, width = d('slide_light').clientWidth - sw;
-					var pos = {
-						l: o.l * width,
-						s: o.s * width,
-						h: o.h / 360 * width
-					};
-					l_slide.style.left = ( pos.l - sw/2 ) + 'px';
-					s_slide.style.left = ( pos.s - sw/2 ) + 'px';
-					h_slide.style.left = ( pos.h - sw/2 ) + 'px';
+					l_slide.position(o.l);
+					s_slide.position(o.s);
+					h_slide.position(o.h / 360);
 					
-					d('sass_string').innerHTML = adjust.sassDifference(c1.value, c2.value, true);
-				}
-			};
-			function d(id) {
-				return document.getElementById(id);
-			};
-			function child(id, name) {
-				var elem = d(id);
-				if (elem) {
-					var elems = elem.getElementsByTagName(name);
-					if (elems && elems.length) {
-						return elems[0];
+					if (c1.value.length && c2.value.length) {
+						document.getElementById('sass_string').innerHTML = adjust.sassDifference(c1.value, c2.value, true);
 					}
 				}
-				return null;
+			};
+			function adjustColor() {
+				var o = adjust.fromHSL(
+					h_slide.value() * 360,
+					s_slide.value(),
+					l_slide.value()
+				);
+				color2.value = o.hex.replace(/#/g, '');
+				cont2.style.backgroundColor = o.hex;
+				if (c1.value.length && c2.value.length) {
+					document.getElementById('sass_string').innerHTML = adjust.sassDifference(c1.value, c2.value, true);
+				}
 			};
 		</script>
 	</head>
@@ -104,24 +88,9 @@
 			</div>
 			
 			<div class="container sliders">
-				<div class="slider_container">
-					<div class="slider" id="slide_light">
-						<a href="#" class="slider">&bull;</a>
-					</div>
-					<label for="slider_light">Lightness</label>
-				</div>
-				<div class="slider_container">
-					<div class="slider" id="slide_sat">
-						<a href="#" class="slider">&bull;</a>
-					</div>
-					<label for="slider_sat">Saturation</label>
-				</div>
-				<div class="slider_container">
-					<div class="slider" id="slide_hue">
-						<a href="#" class="slider">&bull;</a>
-					</div>
-					<label for="slide_hue">Color/Hue</label>
-				</div>
+				<div class="slider_container" id="container_slider_light"></div>
+				<div class="slider_container" id="container_slider_sat"></div>
+				<div class="slider_container" id="container_slider_hue"></div>
 			</div>
 		</div>
 	</body>

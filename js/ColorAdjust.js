@@ -1,8 +1,8 @@
 ;/**
  * @file ColorAdjust.js
  * 
- * Contains a Class for converting RGB values into HSL and vice versa,
- * but also for calculate color differences and others.
+ * Contains a Class for converting RGB values into HSL and vice versa.
+ * Also for calculate color differences and others.
  * 
  * @author Lukas Zurschmiede <lukas@ranta.ch>
  * @copyright 2013 by Lukas Zurschmiede
@@ -206,7 +206,7 @@ ColorAdjust.prototype = {
 		var chroma, hue, x, light, r, g, b;
 		var result = this._getColorValueObject();
 		
-		if (h > 1) { h = h / 100; }
+		if (h > 360) { h = h % 360 };
 		if (s > 1) { s = s / 100; }
 		if (l > 1) { l = l / 100; }
 		
@@ -218,13 +218,7 @@ ColorAdjust.prototype = {
 		hue = h / 60;
 		x = chroma * (1 - Math.abs(hue%2 - 1));
 		light = l - (chroma / 2);
-		
-		if (h == 0) {
-			r = 0;
-			g = 0;
-			b = 0;
-		}
-		else if (hue >= 0 && hue < 1) {
+		if (hue >= 0 && hue < 1) {
 			r = chroma;
 			g = x;
 			b = 0;
@@ -249,7 +243,7 @@ ColorAdjust.prototype = {
 			g = 0;
 			b = chroma;
 		}
-		else if (hue >= 5 && hue < 6) {
+		else {
 			r = chroma;
 			g = 0;
 			b = x;
@@ -322,7 +316,7 @@ ColorAdjust.prototype = {
 	 * @return int
 	 */
 	_fromHex: function(str) {
-		return parseInt(str, 16);
+		return parseInt(str, 16) || 0;
 	},
 	
 	/**

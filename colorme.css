@@ -125,6 +125,7 @@ a, a:hover, a:visited, a:link, a:active {
 /* Sass string and container */
 .sass {
 	padding: 0 0 10px;
+	word-wrap: break-word;
 }
 .sass label {
 	display: inline-block;
