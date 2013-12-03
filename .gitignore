@@ -1,0 +1,6 @@
+# Remove SASS cache.
+.sass-cache/
+
+# Remove backup files.
+*~
+
