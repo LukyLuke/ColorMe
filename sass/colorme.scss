@@ -12,13 +12,13 @@ article, aside, canvas, details, embed,
 figure, figcaption, footer, header, hgroup, 
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
-  margin: 0;
-  padding: 0;
   border: 0;
   font-size: 100%;
   font: inherit;
-  vertical-align: baseline;
   line-height: 1.2em;
+  margin: 0;
+  padding: 0;
+  vertical-align: baseline;
 }
 
 /* HTML-5 Elements for oder browsers */
@@ -29,19 +29,19 @@ footer, header, hgroup, menu, nav, section {
 
 /* Global elements */
 body {
-  font-size: 10pt;
   font-family: Bitstream vera sans, Helvetica narrow, Helvetica, sans-serif;
+  font-size: 10pt;
   text-decoration: none;
 }
 
 label {
-  font-weight: bold;
   font-size: 1.1em;
+  font-weight: bold;
 }
 
 a, a:hover, a:visited, a:link, a:active {
-  text-decoration: none;
   border: none;
+  text-decoration: none;
 }
 
 /* Page, containers and wrappers */
@@ -53,137 +53,152 @@ a, a:hover, a:visited, a:link, a:active {
 .page {
   width: 320px;
 }
+
 .container {
   margin: 10px 0 20px;
   text-align: center;
-}
-.container.shadow {
-  background: #FFFFFF;
-  box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.2);
-  border: 1px solid #B6B6B6;
-  border-radius: 5px;
+
+  &.shadow {
+    background: #FFFFFF;
+    border-radius: 5px;
+    border: 1px solid #B6B6B6;
+    box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.2);
+  }
 }
 
 /* Color containers */
-.colors .color {
-  position: relative;
-  height: 120px;
-  line-height: 150px;
-}
-.colors .color_top {
-  border-radius: 3px 3px 0 0;
-}
-.colors .color_bottom {
-  height: 150px;
-  line-height: 180px;
-  border-radius: 0 0 3px 3px;
-}
+.colors {
+  .color {
+    height: 120px;
+    line-height: 150px;
+    position: relative;
 
-.colors .color .color_pointer {
-  position: absolute;
-  z-index: 501;
-  left: 0;
-  right: 0;
-  height: 0;
-  bottom: -39px;
-  border-top: 40px solid #FFFFFF;
-  border-bottom: 0px none #FFFFFF;
-  border-left: 160px solid transparent;
-  border-right: 160px solid transparent;
+    .color_pointer {
+      border-bottom: 0px none #FFFFFF;
+      border-left: 160px solid transparent;
+      border-right: 160px solid transparent;
+      border-top: 40px solid #FFFFFF;
+      bottom: -39px;
+      height: 0;
+      left: 0;
+      position: absolute;
+      right: 0;
+      z-index: 501;
+    }
+  }
+
+  .color_top {
+    border-radius: 3px 3px 0 0;
+  }
+
+  .color_bottom {
+    border-radius: 0 0 3px 3px;
+    height: 150px;
+    line-height: 180px;
+  }
 }
 
 /* Color inputs */
 .color_input {
-  width: 140px;
   margin: 0 auto;
   position: relative;
-}
+  width: 140px;
 
-.color_input input {
-  border: 1px solid #E0E0E0;
-  border-radius: 3px;
-  box-shadow: 1px 2px 2px #BFBFBF inset;
-  color: #555555;
-  height: 40px;
-  width: 110px;
-  padding-left: 30px;
-  font-size: 1.5em;
-  text-transform: uppercase;
-}
-.color_input input:focus {
-  box-shadow: 0 0 2px #0CBEFF;
-}
+  label {
+    color: #999999;
+    display: block;
+    font-size: 1.5em;
+    margin: -0.1em 0 0 0.3em;
+    position: absolute;
+  }
 
-.color_input label {
-  display: block;
-  color: #999999;
-  font-size: 1.5em;
-  position: absolute;
-  margin: -0.1em 0 0 0.3em;
+  input {
+    border-radius: 3px;
+    border: 1px solid #E0E0E0;
+    box-shadow: 1px 2px 2px #BFBFBF inset;
+    color: #555555;
+    font-size: 1.5em;
+    height: 40px;
+    padding-left: 30px;
+    text-transform: uppercase;
+    width: 110px;
+
+    &:focus {
+      box-shadow: 0 0 2px #0CBEFF;
+    }
+  }
 }
 
 /* Sass string and container */
 .sass {
   padding: 0 0 10px;
   word-wrap: break-word;
-}
-.sass label {
-  display: inline-block;
-  width: 100%;
-  padding: 10px 0;
-  margin: 0 0 10px;
-  color: #E85848;
-  background: #451E1A;
-  border-radius: 3px 3px 0 0;
-}
-.sass .shy {
-  color: transparent;
-}
-.sass .keyword {
-  color: #000000;
-  font-weight: bold;
-}
-.sass .bracket {
-  color: #000000;
-  font-weight: bold;
-}
-.sass .color {
-  color: #0057AE;
-}
-.sass .value {
-  color: #BF0303;
-  margin-left: 5px;
+
+  label {
+    background: #451E1A;
+    border-radius: 3px 3px 0 0;
+    color: #E85848;
+    display: inline-block;
+    margin: 0 0 10px;
+    padding: 10px 0;
+    width: 100%;
+  }
+
+  .shy {
+    color: transparent;
+  }
+
+  .keyword {
+    color: #000000;
+    font-weight: bold;
+  }
+
+  .bracket {
+    color: #000000;
+    font-weight: bold;
+  }
+
+  .color {
+    color: #0057AE;
+  }
+
+  .value {
+    color: #BF0303;
+    margin-left: 5px;
+  }
 }
 
 /* Slider */
-.container.sliders {
-  
-}
-.sliders .slider_container {
-  margin: 10px 0 0;
-}
-.sliders label {
-  font-weight: normal;
-  font-size: 0.8em;
-}
-.sliders div.slider {
-  position: relative;
-  display: inline-block;
-  height: 2px;
-  width: 100%;
-  background: #FFFFFF;
-  box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.2);
-  margin: 0 0 5px;
-}
-.sliders a.slider {
-  position: absolute;
-  display: inline-block;
-  width: 15px;
-  height: 15px;
-  color: #B6B6B6;
-  text-shadow: #000000 0 0 1px;
-  top: 2px;
-  font-size: 50px;
-  line-height: 0px;
-}
+.sliders {
+  .slider_container {
+    margin: 10px 0 0;
+  }
 
+  label {
+    font-size: 0.8em;
+    font-weight: normal;
+  }
+
+  div.slider {
+    background: #FFFFFF;
+    box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.2);
+    display: inline-block;
+    height: 2px;
+    margin: 0 0 5px;
+    position: relative;
+    width: 100%;
+  }
+
+  a.slider {
+    color: #B6B6B6;
+    display: inline-block;
+    font-size: 50px;
+    height: 15px;
+    line-height: 0px;
+    position: absolute;
+    text-shadow: #000000 0 0 1px;
+    top: 2px;
+    width: 15px;
+  }
+
+}
